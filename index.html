@@ -30,23 +30,40 @@
     </style>
 </head>
 <body>
-    <h1>Examples</h1>
-    <canvas class="patterned-banner" data-size="10" data-pattern="square" data-density="100" data-color="rgba(0, 0, 255, 0.3)" height="100">Washed</canvas>
-    <canvas class="patterned-banner" data-size="4" data-pattern="circle" data-density="20" data-color="rgba(0, 0, 255, 0.2)" height="100">Bubbles</canvas>
-    <canvas class="patterned-banner" data-size="1" data-pattern="square" data-density="30" data-color="rgba(64, 64, 64, 0.5)" height="100">Noisy</canvas>
-    <canvas class="patterned-banner" data-pattern="circle" data-density="90" data-color="rgba(0, 0, 255, 0.7)" height="100">Trembling</canvas>
+    <h1>Live demo</h1>
+    <form>
+        <label for="label">Text</label>
+        <input type="text" name="label" id="label" value="Banner"/>
+        <br/>
+        <label for="color">color</label>
+        <input type="color" name="color" id="color" value="#0000FF"/>
+        <br/>
+        <label for="alpha">alpha</label>
+        <input type="range" name="alpha" id="alpha" value="0.5" min="0.1" max="1" step="0.1" oninput="rg_alpha.value=alpha.value"/>
+        <output for="alpha" name="rg_alpha">0.5</output>
+        <br/>
+        <label for="p_density">Pattern density</label>
+        <input type="range" name="p_density" id="p_density" value="80" min="10" max="100" step="5" oninput="rg_density.value=p_density.value"/>
+        <output for="alpha" name="rg_density">80</output>
+        <br/>
+        <label for="p_size">Pattern size</label>
+        <input type="range" name="p_size" id="p_size" value="5" min="1" max="10" step="1" oninput="rg_size.value=p_size.value"/>
+        <output for="p_size" name="rg_size">5</output>
+        <br/>
+        <input type="submit" name="redraw" id="redraw" value="Redraw"/>
+</form>
+    <canvas id="demo" class="patterned-banner" data-size="5" data-pattern="square" data-density="80" data-color="#0000FF80" height="200">Banner</canvas>
     <script src="patterned-banner.js"></script>
     <script>
-        /* Additional script to display parameters used for each example*/
-        let banners = document.getElementsByClassName('patterned-banner');
-        let ul;
-        Array.from(banners).forEach((banner) => {
-            ul = document.createElement('ul');
-            ul.innerHTML =  "<li>size=" + banner.dataset.size + "</li>";
-            ul.innerHTML += "<li>pattern=" + banner.dataset.pattern + "</li>"; 
-            ul.innerHTML += "<li>density=" + banner.dataset.density + "</li>"; 
-            ul.innerHTML += "<li>color=" + banner.dataset.color + "</li>"; 
-            banner.parentNode.insertBefore(ul, banner.nextSibling);
+        /* Additional script to refresh canvas with form values */
+        redraw.addEventListener("click", event => {
+            demo.innerHTML = label.value;
+            demo.dataset.density = p_density.value;
+            demo.dataset.size = p_size.value;
+            demo.dataset.color = color.value + Math.ceil(alpha.value * 0XFF).toString(16);
+            drawBanner(demo);
+            console.log("alpha=" + Math.ceil(alpha.value * 0XFF).toString(16)) // rgba(0, 0, 255, 0.3)
+            event.preventDefault();
         });
     </script>
 </body>
