@@ -45,7 +45,7 @@ function drawBanner(canvas, width) {
     }
     function drawCircle(x, y, d) {
         onscreen_ctx.beginPath();
-        onscreen_ctx.arc(x, y, d, 0, 2 * Math.PI);
+        onscreen_ctx.arc(x, y, Math.ceil(d / 2), 0, 2 * Math.PI);
         //onscreen_ctx.stroke();
         onscreen_ctx.fill();
     }
