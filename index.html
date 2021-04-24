@@ -42,7 +42,7 @@
         .row input, select {
             display: table-cell;
             margin-left: 2em;
-            width: 10em;
+            width: 18em;
         }
         input#redraw {
             background-color: lightgreen;
@@ -80,9 +80,16 @@
             <output for="p_density" name="rg_density">80</output>
         </div>
         <div class="row">
-            <label for="p_size">Pattern size</label>
+            <label for="p_size">Pattern max size</label>
             <input type="range" name="p_size" id="p_size" value="5" min="1" max="20" step="1" oninput="rg_size.value=p_size.value"/>
             <output for="p_size" name="rg_size">5</output>
+        </div>
+        <div class="row">
+            <label for="p_mode">Pattern sizing</label>
+            <select name="p_mode" id="p_mode">
+                <option value="random">Random (between 1 and max size)</option>
+                <option value="constant">Constant (equal to max size)</option>
+            </select>
         </div>
         <div class="row">
             <label for="redraw"></label>
@@ -97,7 +104,8 @@
             demo.innerHTML = label.value;
             demo.dataset.pattern = p_type.value;
             demo.dataset.density = p_density.value;
-            demo.dataset.size = p_size.value;
+            demo.dataset.max_size = p_size.value;
+            demo.dataset.mode_size = p_mode.value;
             demo.dataset.color = color.value + Math.ceil(alpha.value * 0XFF).toString(16);
             drawBanner(demo);
             event.preventDefault();

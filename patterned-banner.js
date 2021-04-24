@@ -1,4 +1,5 @@
 const SIZE = 5;
+const MODE_SIZE = 'random';
 const PATTERN = 'circle';
 const DENSITY = 100;
 const COLOR = 'rgba(128, 128, 128, 1)';
@@ -9,7 +10,8 @@ function drawBanner(canvas, width) {
     // Initialize variables, except width
     let onscreen_ctx = canvas.getContext('2d');
     let h = onscreen_ctx.canvas.height; 
-    let size = parseInt(canvas.dataset.size) || SIZE;
+    let size = parseInt(canvas.dataset.max_size) || SIZE;
+    let mode_size = canvas.dataset.mode_size || MODE_SIZE;
     let pattern = canvas.dataset.pattern || PATTERN;
     let density = parseInt(canvas.dataset.density) || DENSITY;
     let margin = 2 * size;
@@ -59,7 +61,8 @@ function drawBanner(canvas, width) {
         let y = Math.floor(b);
         if (mask.data[4 * ((b * Math.floor(tw) + a))] == 255) {
             on_target += 1;
-            let d = Math.ceil(Math.random() * size);
+            let d = size;
+            if (mode_size == 'random') d = Math.ceil(Math.random() * d);
             if (pattern == 'square') drawSquare(x, y, d);
             else drawCircle(x, y, d);
         }
