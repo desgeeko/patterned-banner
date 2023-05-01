@@ -68,6 +68,14 @@
             <output for="alpha" name="rg_alpha">0.5</output>
         </div>
         <div class="row">
+            <label for="p_outline">Outline</label>
+            <select name="p_outline" id="p_outline">
+                <option value="no">No</option>
+                <option value="background">Background</option>
+                <option value="border">Border</option>
+            </select>
+        </div>
+        <div class="row">
             <label for="p_type">Pattern type</label>
             <select name="p_type" id="p_type">
                 <option value="circle">Circle</option>
@@ -102,6 +110,7 @@
         /* Additional script to refresh canvas with form values */
         redraw.addEventListener("click", event => {
             demo.innerHTML = label.value;
+            demo.dataset.outline = p_outline.value;
             demo.dataset.pattern = p_type.value;
             demo.dataset.density = p_density.value;
             demo.dataset.max_size = p_size.value;
