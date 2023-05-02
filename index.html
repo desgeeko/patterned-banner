@@ -68,6 +68,13 @@
             <output for="alpha" name="rg_alpha">0.5</output>
         </div>
         <div class="row">
+            <label for="p_grid">Grid</label>
+            <select name="p_grid" id="p_grid">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+        <div class="row">
             <label for="p_outline">Outline</label>
             <select name="p_outline" id="p_outline">
                 <option value="no">No</option>
@@ -84,7 +91,7 @@
         </div>
         <div class="row">
             <label for="p_density">Pattern density</label>
-            <input type="range" name="p_density" id="p_density" value="80" min="10" max="100" step="5" oninput="rg_density.value=p_density.value"/>
+            <input type="range" name="p_density" id="p_density" value="80" min="5" max="100" step="5" oninput="rg_density.value=p_density.value"/>
             <output for="p_density" name="rg_density">80</output>
         </div>
         <div class="row">
@@ -110,6 +117,7 @@
         /* Additional script to refresh canvas with form values */
         redraw.addEventListener("click", event => {
             demo.innerHTML = label.value;
+            demo.dataset.grid = p_grid.value;
             demo.dataset.outline = p_outline.value;
             demo.dataset.pattern = p_type.value;
             demo.dataset.density = p_density.value;

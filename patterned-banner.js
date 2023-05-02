@@ -1,5 +1,6 @@
 const SIZE = 5;
 const MODE_SIZE = 'random';
+const GRID = 'no';
 const OUTLINE = 'no';
 const PATTERN = 'circle';
 const DENSITY = 100;
@@ -11,10 +12,11 @@ function drawBanner(canvas, width) {
     // Initialize variables from dataset
     let size = parseInt(canvas.dataset.max_size) || SIZE;
     let mode_size = canvas.dataset.mode_size || MODE_SIZE;
+    let grid = canvas.dataset.grid || GRID;
     let outline = canvas.dataset.outline || OUTLINE;
     let pattern = canvas.dataset.pattern || PATTERN;
     let density = parseInt(canvas.dataset.density) || DENSITY;
-    let margin = 4 * size;
+    let margin = 5 * size;
 
     // Initialize dimensions
     let body = document.getElementsByTagName('body')[0];
@@ -79,13 +81,19 @@ function drawBanner(canvas, width) {
         else drawCircle(x, y, d);
     }
 
+    let g = 1;
+    if (grid == 'yes') {
+        g = size + 1;
+    }
+    console.log("grid size=" + g)
+
     // Actual drawing
-    let iter = 3 * tw * density / size;
+    let iter = 4 * w * density / size;
     if (outline == 'border') iter *= 10;
 
     for (let i = 0; i < iter; i++) {
-        let x = Math.floor(Math.random() * w);
-        let y = Math.floor(Math.random() * h);
+        let x = Math.floor(Math.random() * w / g) * g;
+        let y = Math.floor(Math.random() * h / g) * g;
         point = mask.data[4 * (y * Math.floor(w) + x)]
         if (outline == 'no') {
             if (point == 255) {
@@ -112,6 +120,7 @@ function drawBanner(canvas, width) {
         }
     }
     console.log("number of drawn shapes=" + on_target);
+
 }
 
 window.addEventListener('load', function() {
